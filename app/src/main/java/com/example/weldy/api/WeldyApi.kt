@@ -9,5 +9,5 @@ interface WeldyApi {
     suspend fun getCats(
         @Query("limit") limit: Int = 1,
         @Query("page") page: Int = 0
-    ): CatResponse
+    ): List<CatResponse>
 }

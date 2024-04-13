@@ -90,4 +90,6 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
 
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 }
