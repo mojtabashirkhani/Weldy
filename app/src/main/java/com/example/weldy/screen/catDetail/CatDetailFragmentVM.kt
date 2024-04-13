@@ -1,9 +1,10 @@
-package com.example.weldy.fragment.catBookmark
+package com.example.weldy.screen.catDetail
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CatBookmarkFragmentVM @Inject constructor(): ViewModel() {
+class CatDetailFragmentVM @Inject constructor(): ViewModel() {
+
 }

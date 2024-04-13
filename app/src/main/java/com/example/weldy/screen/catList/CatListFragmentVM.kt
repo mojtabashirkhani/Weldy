@@ -1,4 +1,4 @@
-package com.example.weldy.fragment.catList
+package com.example.weldy.screen.catList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
