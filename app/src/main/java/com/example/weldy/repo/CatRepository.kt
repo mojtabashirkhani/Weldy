@@ -1,6 +1,6 @@
 package com.example.weldy.repo
 
-import com.example.weldy.api.WeldyApi
+import com.example.weldy.data.remote.api.WeldyApi
 import javax.inject.Inject
 
 class CatRepository @Inject constructor(private val weldyApi: WeldyApi) {

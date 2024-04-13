@@ -15,10 +15,8 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import android.R
-import com.example.weldy.data.CatResponse
+import com.example.weldy.data.remote.model.CatResponse
 import com.example.weldy.extensions.fromJson
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun CatDetail(navController: NavHostController, item: String) {

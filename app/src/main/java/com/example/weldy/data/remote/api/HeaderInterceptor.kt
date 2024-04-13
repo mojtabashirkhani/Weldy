@@ -1,4 +1,4 @@
-package com.example.weldy.api
+package com.example.weldy.data.remote.api
 
 import okhttp3.Interceptor
 import okhttp3.RequestBody

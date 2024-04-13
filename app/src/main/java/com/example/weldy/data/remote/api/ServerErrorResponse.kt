@@ -1,8 +1,8 @@
-package com.example.weldy.api
+package com.example.weldy.data.remote.api
 
 data class ServerErrorResponse(
     val status:Int = -1,
-    val data:Payload?
+    val data: Payload?
 )
 
 data class Payload(

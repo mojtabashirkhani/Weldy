@@ -6,7 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.weldy.data.CatResponse
+import com.example.weldy.data.remote.model.CatResponse
 import com.example.weldy.repo.CatRepository
 import com.example.weldy.repo.paged.CatSource
 import dagger.hilt.android.lifecycle.HiltViewModel

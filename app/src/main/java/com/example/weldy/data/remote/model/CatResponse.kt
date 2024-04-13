@@ -1,4 +1,4 @@
-package com.example.weldy.data
+package com.example.weldy.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 

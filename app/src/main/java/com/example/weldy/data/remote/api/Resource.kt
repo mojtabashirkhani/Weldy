@@ -1,4 +1,4 @@
-package com.example.weldy.api
+package com.example.weldy.data.remote.api
 
 
 import com.example.weldy.extensions.fromJson

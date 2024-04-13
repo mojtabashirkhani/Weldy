@@ -2,7 +2,7 @@ package com.example.weldy.repo.paged
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.weldy.data.CatResponse
+import com.example.weldy.data.remote.model.CatResponse
 import com.example.weldy.repo.CatRepository
 import javax.inject.Inject
 

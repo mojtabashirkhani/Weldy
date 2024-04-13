@@ -15,7 +15,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.weldy.data.CatResponse
 import com.example.weldy.screen.catDetail.CatDetail
 import com.example.weldy.screen.catList.CatInfoList
 import com.example.weldy.screen.catList.CatListFragmentVM

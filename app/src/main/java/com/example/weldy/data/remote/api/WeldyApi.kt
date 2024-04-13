@@ -1,6 +1,6 @@
-package com.example.weldy.api
+package com.example.weldy.data.remote.api
 
-import com.example.weldy.data.CatResponse
+import com.example.weldy.data.remote.model.CatResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
