@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -105,7 +106,7 @@ fun ListViewItem(item: CatResponse, onItemClick: (CatResponse) -> Unit) {
                 .crossfade(true)
                 .build(),
             contentDescription = "",
-            modifier = Modifier.size(item.width?.dp ?: 0.dp, item.height?.dp ?: 0.dp),
+            modifier = Modifier.size((LocalConfiguration.current.screenWidthDp * 0.3f).dp, (LocalConfiguration.current.screenWidthDp * 0.4f).dp),
             contentScale = ContentScale.Crop,
             error = painterResource(id = android.R.drawable.stat_notify_error),
             placeholder = painterResource(id = android.R.drawable.presence_away)

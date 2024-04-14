@@ -2,6 +2,8 @@ package com.example.weldy.repo.paged
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.weldy.data.remote.api.Resource
+import com.example.weldy.data.remote.api.ResponseHandler
 import com.example.weldy.data.remote.model.CatResponse
 import com.example.weldy.repo.CatRepository
 import javax.inject.Inject
@@ -15,9 +17,11 @@ class CatRemoteSource @Inject constructor(private val catRepository: CatReposito
             val catListResponse = catRepository.getCatsRemote(params.loadSize, nextPage)
 
             LoadResult.Page(
-                data = catListResponse,
+                data = catListResponse.data ?: emptyList(),
                 prevKey = if (nextPage > 0) nextPage - 1 else null,
-                nextKey =  if (catListResponse.isEmpty() || catListResponse.size < params.loadSize) null else nextPage + 1
+                nextKey =  if (catListResponse.data?.isEmpty() == true || (catListResponse.data?.size
+                        ?: 0) < params.loadSize
+                ) null else nextPage + 1
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

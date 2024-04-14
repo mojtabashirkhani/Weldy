@@ -18,6 +18,7 @@ import android.R
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.size.Scale
 import com.example.weldy.data.local.model.WeldyEntity
@@ -57,10 +58,9 @@ fun CatDetail(navController: NavHostController, item: String) {
                 .Builder(context)
                 .data("${catItem?.url}")
                 .crossfade(true)
-                .scale(Scale.FILL)
                 .build(),
             contentDescription = "",
-            modifier = Modifier.size(catItem?.width?.dp ?: 0.dp, catItem?.height?.dp ?: 0.dp),
+            modifier = Modifier.size((LocalConfiguration.current.screenWidthDp).dp, (LocalConfiguration.current.screenHeightDp).dp),
             contentScale = ContentScale.Crop,
             error = painterResource(id = R.drawable.stat_notify_error),
             placeholder = painterResource(id = R.drawable.presence_away)
