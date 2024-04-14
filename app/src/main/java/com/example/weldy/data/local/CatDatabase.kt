@@ -12,5 +12,5 @@ import com.example.weldy.data.local.model.CatEntity
     exportSchema = false
 )
 abstract class CatDatabase : RoomDatabase()  {
-    abstract fun weldyDao(): CatDao
+    abstract fun catDao(): CatDao
 }

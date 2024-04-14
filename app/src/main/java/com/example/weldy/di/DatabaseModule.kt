@@ -24,7 +24,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideWeldyDao(db: CatDatabase): CatDao {
-        return db.weldyDao()
+    fun provideCatDao(db: CatDatabase): CatDao {
+        return db.catDao()
     }
 }
