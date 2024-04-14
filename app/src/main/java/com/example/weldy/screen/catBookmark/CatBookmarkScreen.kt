@@ -9,13 +9,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -42,39 +48,51 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
     val catListItems: LazyPagingItems<CatEntity> = catList.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
 
-    LazyVerticalGrid(columns = GridCells.Fixed(3),
-        modifier = modifier.padding(horizontal = 4.dp),
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        items(catListItems.itemCount){ item ->
-            ListViewItem(item = catListItems[item]!!, onItemClick = {
-                coroutineScope.launch {
-                    withContext(Dispatchers.IO) {
-                        val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
-                        withContext(Dispatchers.Main) {
-                            val itemAsJsonString = Gson().toJson(CatEntity(it.id, encodedUrl, it.width, it.height))
-                            navController.navigate("details?catItem=${itemAsJsonString}&isFavouriteVisible=${false}")
+        Text("Bookmarks", style = MaterialTheme.typography.titleLarge)
+
+        LazyVerticalGrid(columns = GridCells.Fixed(3),
+            modifier = modifier.padding(horizontal = 4.dp),
+        ) {
+            items(catListItems.itemCount){ item ->
+                ListViewItem(item = catListItems[item]!!, onItemClick = {
+                    coroutineScope.launch {
+                        withContext(Dispatchers.IO) {
+                            val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
+                            withContext(Dispatchers.Main) {
+                                val itemAsJsonString = Gson().toJson(CatEntity(it.id, encodedUrl, it.width, it.height))
+                                navController.navigate("details?catItem=${itemAsJsonString}&isFavouriteVisible=${false}")
+                            }
                         }
                     }
-                }
 
-            })
-        }
-        catListItems.apply {
-            when {
-                loadState.refresh is LoadState.Loading -> {
-                    //You can add modifier to manage load state when first time response page is loading
-                }
+                })
+            }
+            catListItems.apply {
+                when {
+                    loadState.refresh is LoadState.Loading -> {
+                        //You can add modifier to manage load state when first time response page is loading
+                    }
 
-                loadState.append is LoadState.Loading -> {
-                    //You can add modifier to manage load state when next response page is loading
-                }
+                    loadState.append is LoadState.Loading -> {
+                        //You can add modifier to manage load state when next response page is loading
+                    }
 
-                loadState.append is LoadState.Error -> {
-                    //You can use modifier to show error message
+                    loadState.append is LoadState.Error -> {
+                        //You can use modifier to show error message
+                    }
                 }
             }
         }
     }
+
+
 }
 
 @Composable
@@ -87,19 +105,23 @@ fun ListViewItem(item: CatEntity, onItemClick: (CatEntity) -> Unit) {
             .padding(12.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        AsyncImage(
-            model = ImageRequest
-                .Builder(context)
-                .data("${item.url}")
-                .crossfade(true)
-                .scale(Scale.FILL)
-                .build(),
-            contentDescription = null,
-            modifier = Modifier.size((LocalConfiguration.current.screenWidthDp * 0.3f).dp, (LocalConfiguration.current.screenWidthDp * 0.4f).dp),
-            contentScale = ContentScale.FillBounds,
-            error = painterResource(id = R.drawable.stat_notify_error),
-            placeholder = painterResource(id = R.drawable.presence_away)
-        )
+
+        Card() {
+            AsyncImage(
+                model = ImageRequest
+                    .Builder(context)
+                    .data("${item.url}")
+                    .crossfade(true)
+                    .scale(Scale.FILL)
+                    .build(),
+                contentDescription = null,
+                modifier = Modifier.size((LocalConfiguration.current.screenWidthDp * 0.3f).dp, (LocalConfiguration.current.screenWidthDp * 0.4f).dp),
+                contentScale = ContentScale.FillBounds,
+                error = painterResource(id = R.drawable.stat_notify_error),
+                placeholder = painterResource(id = R.drawable.presence_away)
+            )
+        }
+
 
 
     }

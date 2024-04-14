@@ -16,6 +16,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import android.R
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
@@ -53,19 +54,21 @@ fun CatDetail(item: String, isVisible: Boolean) {
             }
         }
 
+        Card() {
+            AsyncImage(
+                model = ImageRequest
+                    .Builder(context)
+                    .data("${catItem?.url}")
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "",
+                modifier = Modifier.size((LocalConfiguration.current.screenWidthDp).dp, (LocalConfiguration.current.screenHeightDp).dp),
+                contentScale = ContentScale.Crop,
+                error = painterResource(id = R.drawable.stat_notify_error),
+                placeholder = painterResource(id = R.drawable.presence_away)
+            )
+        }
 
-        AsyncImage(
-            model = ImageRequest
-                .Builder(context)
-                .data("${catItem?.url}")
-                .crossfade(true)
-                .build(),
-            contentDescription = "",
-            modifier = Modifier.size((LocalConfiguration.current.screenWidthDp).dp, (LocalConfiguration.current.screenHeightDp).dp),
-            contentScale = ContentScale.Crop,
-            error = painterResource(id = R.drawable.stat_notify_error),
-            placeholder = painterResource(id = R.drawable.presence_away)
-        )
 
 
     }
