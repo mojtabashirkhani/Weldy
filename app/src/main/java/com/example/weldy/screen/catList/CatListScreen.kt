@@ -1,6 +1,6 @@
 package com.example.weldy.screen.catList
 
-import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
@@ -30,7 +29,6 @@ import coil.request.ImageRequest
 import com.example.weldy.data.remote.model.CatResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
@@ -42,6 +40,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
     val catList = catListVM.cats
     val catListItems: LazyPagingItems<CatResponse> = catList.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     Column {
         Button(onClick = {
@@ -60,6 +59,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
                         withContext(Dispatchers.IO) {
                             val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
                             withContext(Dispatchers.Main) {
+
                                 val itemAsJsonString = Gson().toJson(CatResponse(it.id, encodedUrl, it.width, it.height))
                                 navController.navigate("details/${itemAsJsonString}")
                             }
@@ -69,6 +69,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
                 })
             }
             catListItems.apply {
+
                 when {
                     loadState.refresh is LoadState.Loading -> {
                         //You can add modifier to manage load state when first time response page is loading
@@ -76,15 +77,24 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
 
                     loadState.append is LoadState.Loading -> {
                         //You can add modifier to manage load state when next response page is loading
+
                     }
 
                     loadState.append is LoadState.Error -> {
-                        //You can use modifier to show error message
+                        Toast.makeText(context, (loadState.refresh as LoadState.Error).error.message, Toast.LENGTH_SHORT).show()
                     }
+
+                    loadState.refresh is LoadState.Error -> {
+                        Toast.makeText(context, (loadState.refresh as LoadState.Error).error.message, Toast.LENGTH_SHORT).show()
+
+                    }
+
+
                 }
             }
         }
     }
+
 
 
 }
@@ -115,3 +125,4 @@ fun ListViewItem(item: CatResponse, onItemClick: (CatResponse) -> Unit) {
 
     }
 }
+

@@ -9,7 +9,7 @@ enum class ErrorCodes(val code: Int) {
     SocketTimeOut(-1)
 }
 
-class ResponseHandler @Inject constructor(private val weldyApi: WeldyApi) {
+class ResponseHandler  {
     fun <T : Any> handleSuccess(data: T): Resource<T> {
 
         return Resource.success(data)
@@ -36,7 +36,7 @@ class ResponseHandler @Inject constructor(private val weldyApi: WeldyApi) {
         }
     }
 
-    suspend fun <T : Any> apiCall (apiCal: suspend (WeldyApi.() -> T)): Resource<T> {
+   /* suspend fun <T : Any> apiCall (apiCal: suspend (WeldyApi.() -> T)): Resource<T> {
         return try {
             val response = weldyApi.apiCal()
             handleSuccess(response)
@@ -45,7 +45,7 @@ class ResponseHandler @Inject constructor(private val weldyApi: WeldyApi) {
             e.printStackTrace()
             return handleException(e)
         }
-    }
+    }*/
 }
 
 
