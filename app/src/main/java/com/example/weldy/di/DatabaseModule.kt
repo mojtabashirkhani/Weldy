@@ -3,8 +3,8 @@ package com.example.weldy.di
 import android.app.Application
 import androidx.room.Room
 import com.example.weldy.core.DB_NAME
-import com.example.weldy.data.local.AppDatabase
-import com.example.weldy.data.local.dao.WeldyDao
+import com.example.weldy.data.local.CatDatabase
+import com.example.weldy.data.local.dao.CatDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,15 +16,15 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideRoomDatabase(application: Application): AppDatabase {
+    fun provideRoomDatabase(application: Application): CatDatabase {
         return Room
-            .databaseBuilder(application, AppDatabase::class.java, DB_NAME)
+            .databaseBuilder(application, CatDatabase::class.java, DB_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Provides
-    fun provideWeldyDao(db: AppDatabase): WeldyDao {
+    fun provideWeldyDao(db: CatDatabase): CatDao {
         return db.weldyDao()
     }
 }

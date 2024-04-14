@@ -20,11 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.size.Scale
-import com.example.weldy.data.local.model.WeldyEntity
+import com.example.weldy.data.local.model.CatEntity
 import com.example.weldy.data.remote.model.CatResponse
 import com.example.weldy.extensions.fromJson
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,7 +44,7 @@ fun CatDetail(navController: NavHostController, item: String) {
         Button(onClick = {
             coroutineScope.launch {
                 withContext(Dispatchers.IO) {
-                    catDetailVM.insertCatToFavourite(WeldyEntity(catItem?.id ?: "", catItem?.url, catItem?.width, catItem?.height))
+                    catDetailVM.insertCatToFavourite(CatEntity(catItem?.id ?: "", catItem?.url, catItem?.width, catItem?.height))
                 }
             }
         }) {

@@ -1,8 +1,6 @@
 package com.example.weldy.screen.catBookmark
 
 import android.R
-import android.content.Context
-import android.widget.ImageView.ScaleType
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -23,17 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
-import com.example.weldy.data.local.model.WeldyEntity
+import com.example.weldy.data.local.model.CatEntity
 import com.google.gson.Gson
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
@@ -45,7 +39,7 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
 
     val catBookmarkVM: CatBookmarkVM = hiltViewModel()
     val catList = catBookmarkVM.cats
-    val catListItems: LazyPagingItems<WeldyEntity> = catList.collectAsLazyPagingItems()
+    val catListItems: LazyPagingItems<CatEntity> = catList.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
 
     LazyVerticalGrid(columns = GridCells.Fixed(3),
@@ -57,7 +51,7 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
                     withContext(Dispatchers.IO) {
                         val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
                         withContext(Dispatchers.Main) {
-                            val itemAsJsonString = Gson().toJson(WeldyEntity(it.id, encodedUrl, it.width, it.height))
+                            val itemAsJsonString = Gson().toJson(CatEntity(it.id, encodedUrl, it.width, it.height))
                             navController.navigate("details/${itemAsJsonString}")
                         }
                     }
@@ -84,7 +78,7 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
 }
 
 @Composable
-fun ListViewItem(item: WeldyEntity, onItemClick: (WeldyEntity) -> Unit) {
+fun ListViewItem(item: CatEntity, onItemClick: (CatEntity) -> Unit) {
     val context = LocalContext.current
     Column(
         modifier = Modifier

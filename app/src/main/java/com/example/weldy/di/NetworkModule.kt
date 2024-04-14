@@ -1,7 +1,7 @@
 package com.example.weldy.di
 
 import com.example.weldy.data.remote.api.HeaderInterceptor
-import com.example.weldy.data.remote.api.WeldyApi
+import com.example.weldy.data.remote.api.CatApi
 import com.example.weldy.core.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -37,5 +37,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): WeldyApi = retrofit.create(WeldyApi::class.java)
+    fun provideApiService(retrofit: Retrofit): CatApi = retrofit.create(CatApi::class.java)
 }
