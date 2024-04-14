@@ -52,7 +52,7 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
                         val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
                         withContext(Dispatchers.Main) {
                             val itemAsJsonString = Gson().toJson(CatEntity(it.id, encodedUrl, it.width, it.height))
-                            navController.navigate("details/${itemAsJsonString}")
+                            navController.navigate("details?catItem=${itemAsJsonString}&isFavouriteVisible=${false}")
                         }
                     }
                 }

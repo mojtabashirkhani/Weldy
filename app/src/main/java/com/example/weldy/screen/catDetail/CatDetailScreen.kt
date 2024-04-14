@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun CatDetail(navController: NavHostController, item: String) {
+fun CatDetail(item: String, isVisible: Boolean) {
     val catDetailVM: CatDetailVM = hiltViewModel()
     val catItem = item.fromJson<CatResponse>()
     val context = LocalContext.current
@@ -41,15 +41,18 @@ fun CatDetail(navController: NavHostController, item: String) {
             .padding(12.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Button(onClick = {
-            coroutineScope.launch {
-                withContext(Dispatchers.IO) {
-                    catDetailVM.insertCatToFavourite(CatEntity(catItem?.id ?: "", catItem?.url, catItem?.width, catItem?.height))
+        if (isVisible) {
+            Button(onClick = {
+                coroutineScope.launch {
+                    withContext(Dispatchers.IO) {
+                        catDetailVM.insertCatToFavourite(CatEntity(catItem?.id ?: "", catItem?.url, catItem?.width, catItem?.height))
+                    }
                 }
+            }) {
+                Text("Add to Favourite")
             }
-        }) {
-            Text("Add to Favourite")
         }
+
 
         AsyncImage(
             model = ImageRequest

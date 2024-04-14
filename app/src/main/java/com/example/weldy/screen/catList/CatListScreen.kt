@@ -61,7 +61,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
                             withContext(Dispatchers.Main) {
 
                                 val itemAsJsonString = Gson().toJson(CatResponse(it.id, encodedUrl, it.width, it.height))
-                                navController.navigate("details/${itemAsJsonString}")
+                                navController.navigate("details?catItem=${itemAsJsonString}&isFavouriteVisible=${true}")
                             }
                         }
                     }

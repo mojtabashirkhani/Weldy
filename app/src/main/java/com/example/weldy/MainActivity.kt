@@ -46,12 +46,14 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = "details/{catItem}",
-                            arguments = listOf(navArgument("catItem") { type = NavType.StringType })
+                            route = "details?catItem={catItem}&isFavouriteVisible={isFavouriteVisible}",
+                            arguments = listOf(
+                                navArgument("catItem") { type = NavType.StringType },
+                                navArgument("isFavouriteVisible") {type = NavType.BoolType})
                         ) { backStackEntry ->
                             CatDetail(
-                                navController,
-                                backStackEntry.arguments?.getString("catItem") ?: ""
+                                backStackEntry.arguments?.getString("catItem") ?: "",
+                                backStackEntry.arguments?.getBoolean("isFavouriteVisible") ?: false
                             )
                         }
                         composable("favourite") {
