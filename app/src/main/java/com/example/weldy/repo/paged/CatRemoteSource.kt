@@ -6,13 +6,13 @@ import com.example.weldy.data.remote.model.CatResponse
 import com.example.weldy.repo.CatRepository
 import javax.inject.Inject
 
-class CatSource @Inject constructor(private val catRepository: CatRepository): PagingSource<Int, CatResponse>() {
+class CatRemoteSource @Inject constructor(private val catRepository: CatRepository): PagingSource<Int, CatResponse>() {
 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CatResponse> {
         return try {
             val nextPage = params.key ?: 1
-            val catListResponse = catRepository.getCats(params.loadSize, nextPage)
+            val catListResponse = catRepository.getCatsRemote(params.loadSize, nextPage)
 
             LoadResult.Page(
                 data = catListResponse,

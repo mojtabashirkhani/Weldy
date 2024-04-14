@@ -15,18 +15,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.weldy.screen.catBookmark.CatBookmarkList
+import com.example.weldy.screen.catBookmark.CatBookmarkVM
 import com.example.weldy.screen.catDetail.CatDetail
+import com.example.weldy.screen.catDetail.CatDetailVM
 import com.example.weldy.screen.catList.CatInfoList
-import com.example.weldy.screen.catList.CatListFragmentVM
+import com.example.weldy.screen.catList.CatListVM
 import com.example.weldy.ui.theme.WeldyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val mViewModel by lazy {
-        ViewModelProvider(this)[CatListFragmentVM::class.java]
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +37,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val context = LocalContext.current
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "list") {
                         composable("list") {
                             CatInfoList(
                                 modifier = Modifier.fillMaxWidth(),
-                                mViewModel.user,
-                                context,
                                 navController
                             )
                         }
@@ -56,6 +52,12 @@ class MainActivity : ComponentActivity() {
                             CatDetail(
                                 navController,
                                 backStackEntry.arguments?.getString("catItem") ?: ""
+                            )
+                        }
+                        composable("favourite") {
+                            CatBookmarkList(
+                                modifier = Modifier.fillMaxWidth(),
+                                navController
                             )
                         }
                     }

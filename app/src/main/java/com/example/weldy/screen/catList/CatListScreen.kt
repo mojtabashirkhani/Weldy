@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -16,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -33,43 +36,56 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 @Composable
-fun CatInfoList(modifier: Modifier, catList: Flow<PagingData<CatResponse>>, context: Context, navController: NavHostController) {
+fun CatInfoList(modifier: Modifier, navController: NavHostController) {
+    val catListVM: CatListVM = hiltViewModel()
+    val catList = catListVM.cats
     val catListItems: LazyPagingItems<CatResponse> = catList.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
 
-    LazyVerticalGrid(columns = GridCells.Adaptive(150.dp),
-        modifier = modifier.padding(horizontal = 4.dp),
+    Column {
+        Button(onClick = {
+            navController.navigate("favourite")
+        }) {
+            Text("Favourite")
+
+        }
+
+        LazyVerticalGrid(columns = GridCells.Fixed(3),
+            modifier = modifier.padding(horizontal = 4.dp),
         ) {
-        items(catListItems.itemCount){ item ->
-            ListViewItem(item = catListItems[item]!!, onItemClick = {
-                coroutineScope.launch {
-                    withContext(Dispatchers.IO) {
-                        val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
-                        withContext(Dispatchers.Main) {
-                            val itemAsJsonString = Gson().toJson(CatResponse(it.id, encodedUrl, it.width, it.height))
-                            navController.navigate("details/${itemAsJsonString}")
+            items(catListItems.itemCount){ item ->
+                ListViewItem(item = catListItems[item]!!, onItemClick = {
+                    coroutineScope.launch {
+                        withContext(Dispatchers.IO) {
+                            val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
+                            withContext(Dispatchers.Main) {
+                                val itemAsJsonString = Gson().toJson(CatResponse(it.id, encodedUrl, it.width, it.height))
+                                navController.navigate("details/${itemAsJsonString}")
+                            }
                         }
                     }
-                }
 
-            })
-        }
-        catListItems.apply {
-            when {
-                loadState.refresh is LoadState.Loading -> {
-                    //You can add modifier to manage load state when first time response page is loading
-                }
+                })
+            }
+            catListItems.apply {
+                when {
+                    loadState.refresh is LoadState.Loading -> {
+                        //You can add modifier to manage load state when first time response page is loading
+                    }
 
-                loadState.append is LoadState.Loading -> {
-                    //You can add modifier to manage load state when next response page is loading
-                }
+                    loadState.append is LoadState.Loading -> {
+                        //You can add modifier to manage load state when next response page is loading
+                    }
 
-                loadState.append is LoadState.Error -> {
-                    //You can use modifier to show error message
+                    loadState.append is LoadState.Error -> {
+                        //You can use modifier to show error message
+                    }
                 }
             }
         }
     }
+
+
 }
 
 @Composable
