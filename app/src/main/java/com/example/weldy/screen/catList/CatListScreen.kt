@@ -46,7 +46,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
         Button(onClick = {
             navController.navigate("favourite")
         }) {
-            Text("Favourite")
+            Text("Bookmark")
 
         }
 
