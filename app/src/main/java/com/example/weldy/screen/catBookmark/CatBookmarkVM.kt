@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.weldy.data.local.model.CatEntity
 import com.example.weldy.repo.CatRepository
-import com.example.weldy.repo.paged.CatLocalSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -17,6 +16,7 @@ import javax.inject.Inject
 class CatBookmarkVM @Inject constructor(private val catRepository: CatRepository): ViewModel() {
 
     val cats: Flow<PagingData<CatEntity>> = Pager(PagingConfig(pageSize = 10)) {
-        CatLocalSource(catRepository)
+        catRepository.getCatsLocal()
     }.flow.cachedIn(viewModelScope)
+
 }

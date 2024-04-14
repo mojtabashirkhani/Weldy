@@ -9,7 +9,7 @@ class CatRepository @Inject constructor(private val catApi: CatApi, private val 
     suspend fun getCatsRemote(limit: Int, page: Int) =
         catApi.getCats(limit, page)
 
-    suspend fun getCatsLocal() = catDao.getCatImages()
+     fun getCatsLocal() = catDao.getCatImages()
 
     suspend fun insertCatToFavourite(catEntity: CatEntity) = catDao.insertCatImageToFavourite(catEntity)
 }

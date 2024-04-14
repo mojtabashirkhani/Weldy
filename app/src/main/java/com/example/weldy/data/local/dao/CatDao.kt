@@ -1,5 +1,7 @@
 package com.example.weldy.data.local.dao
 
+import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,7 +11,7 @@ import com.example.weldy.data.local.model.CatEntity
 @Dao
 interface CatDao {
     @Query("SELECT * FROM catimage")
-    suspend fun getCatImages(): List<CatEntity>
+    fun getCatImages(): PagingSource<Int, CatEntity>
 
     /**
      *@author Burhan ud din ---> method used to add item searched
