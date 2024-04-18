@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.weldy.navigation.AppNavHost
 import com.example.weldy.screen.catBookmark.CatBookmarkList
 import com.example.weldy.screen.catBookmark.CatBookmarkVM
 import com.example.weldy.screen.catDetail.CatDetail
@@ -38,31 +39,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "list") {
-                        composable("list") {
-                            CatInfoList(
-                                modifier = Modifier.fillMaxWidth(),
-                                navController
-                            )
-                        }
-                        composable(
-                            route = "details?catItem={catItem}&isFavouriteVisible={isFavouriteVisible}",
-                            arguments = listOf(
-                                navArgument("catItem") { type = NavType.StringType },
-                                navArgument("isFavouriteVisible") {type = NavType.BoolType})
-                        ) { backStackEntry ->
-                            CatDetail(
-                                backStackEntry.arguments?.getString("catItem") ?: "",
-                                backStackEntry.arguments?.getBoolean("isFavouriteVisible") ?: false
-                            )
-                        }
-                        composable("favourite") {
-                            CatBookmarkList(
-                                modifier = Modifier.fillMaxWidth(),
-                                navController
-                            )
-                        }
-                    }
+                    AppNavHost(navController = rememberNavController())
 
                 }
 

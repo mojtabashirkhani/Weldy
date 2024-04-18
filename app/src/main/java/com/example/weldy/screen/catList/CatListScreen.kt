@@ -32,6 +32,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.weldy.data.remote.model.CatResponse
+import com.example.weldy.navigation.NavigationItem
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,7 +61,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
         )
 
         Button(onClick = {
-            navController.navigate("favourite")
+            navController.navigate(NavigationItem.Bookmark.route)
         }) {
             Text("Bookmark")
 
@@ -86,7 +87,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
                                         it.height
                                     )
                                 )
-                                navController.navigate("details?catItem=${itemAsJsonString}&isFavouriteVisible=${true}")
+                                navController.navigate("${NavigationItem.Detail.route}?catItem=${itemAsJsonString}&isFavouriteVisible=${true}")
                             }
                         }
                     }

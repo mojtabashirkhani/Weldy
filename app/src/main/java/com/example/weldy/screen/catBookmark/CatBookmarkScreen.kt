@@ -32,6 +32,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.weldy.data.local.model.CatEntity
+import com.example.weldy.navigation.NavigationItem
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -67,7 +68,7 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
                             val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
                             withContext(Dispatchers.Main) {
                                 val itemAsJsonString = Gson().toJson(CatEntity(it.id, encodedUrl, it.width, it.height))
-                                navController.navigate("details?catItem=${itemAsJsonString}&isFavouriteVisible=${false}")
+                                navController.navigate("${NavigationItem.Detail.route}?catItem=${itemAsJsonString}&isFavouriteVisible=${false}")
                             }
                         }
                     }
