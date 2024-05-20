@@ -14,6 +14,7 @@ Weldy is a simple application with 3 sections, the home screen shows images with
 + [Retrofit](https://square.github.io/retrofit/)
 + [OkHttp](https://github.com/square/okhttp)
 + [Material Design](https://developer.android.com/develop/ui/compose/designsystems/material3)
++ [Coil](https://coil-kt.github.io/coil/compose/)
 
 ### Architecture
 
