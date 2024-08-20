@@ -54,6 +54,10 @@ android {
 dependencies {
     val roomVersion = "2.6.1"
 
+    androidTestImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0") // Replace with your desired version
+
+    testImplementation  ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -87,13 +91,20 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    // For Robolectric tests.
+    testImplementation ("com.google.dagger:hilt-android-testing:2.44")
+    // ...with Kotlin.
+    kaptTest ("com.google.dagger:hilt-android-compiler:2.44")
+
 
 
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+    androidTestImplementation ("androidx.room:room-testing:$roomVersion")
 
     implementation("io.coil-kt:coil-compose:2.4.0")
+    testImplementation("io.coil-kt:coil-test:2.4.0")
 
 }
