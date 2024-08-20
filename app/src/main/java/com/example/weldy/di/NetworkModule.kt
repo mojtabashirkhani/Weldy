@@ -2,7 +2,7 @@ package com.example.weldy.di
 
 import com.example.weldy.data.remote.api.HeaderInterceptor
 import com.example.weldy.data.remote.api.CatApi
-import com.example.weldy.core.BASE_URL
+import com.example.weldy.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

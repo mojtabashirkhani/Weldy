@@ -1,4 +1,4 @@
-package com.example.weldy.core
+package com.example.weldy.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
