@@ -10,7 +10,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 
-class GetPaginatedCatsUseCaseTest {
+class GetRemotePaginatedCatsUseCaseTest {
 
     private val catRepository: CatRepositoryImpl = mock(CatRepositoryImpl::class.java)
     private val getRemotePaginatedCatsUseCase = GetRemotePaginatedCatsUseCase(catRepository)
