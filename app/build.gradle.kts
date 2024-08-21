@@ -16,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.weldy.di.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -96,6 +96,10 @@ dependencies {
     // ...with Kotlin.
     kaptTest ("com.google.dagger:hilt-android-compiler:2.44")
 
+    // For instrumented tests.
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.44")
+    // ...with Kotlin.
+    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:2.44")
 
 
     implementation("androidx.room:room-runtime:$roomVersion")
