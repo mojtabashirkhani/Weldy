@@ -7,11 +7,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.example.weldy.data.local.model.CatEntity
-import com.example.weldy.domain.CatMapper
+import com.example.weldy.data.mapper.CatMapper
 import com.example.weldy.domain.model.Cat
 import com.example.weldy.domain.usecase.GetLocalCatsPagingSourceUseCase
-import com.example.weldy.extensions.transform
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

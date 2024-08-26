@@ -1,4 +1,4 @@
-package com.example.weldy.domain
+package com.example.weldy.data.mapper
 
 import com.example.weldy.data.local.model.CatEntity
 import com.example.weldy.data.remote.model.CatResponse

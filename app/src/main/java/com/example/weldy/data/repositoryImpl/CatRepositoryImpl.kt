@@ -4,8 +4,7 @@ import androidx.paging.PagingSource
 import com.example.weldy.data.local.dao.CatDao
 import com.example.weldy.data.local.model.CatEntity
 import com.example.weldy.data.remote.api.CatApi
-import com.example.weldy.data.remote.model.CatResponse
-import com.example.weldy.domain.CatMapper
+import com.example.weldy.data.mapper.CatMapper
 import com.example.weldy.domain.model.Cat
 import com.example.weldy.domain.repository.CatRepository
 import javax.inject.Inject

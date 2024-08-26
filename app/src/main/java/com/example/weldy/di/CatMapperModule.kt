@@ -1,6 +1,6 @@
 package com.example.weldy.di
 
-import com.example.weldy.domain.CatMapper
+import com.example.weldy.data.mapper.CatMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
