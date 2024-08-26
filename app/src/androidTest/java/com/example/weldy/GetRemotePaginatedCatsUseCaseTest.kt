@@ -3,21 +3,21 @@ package com.example.weldy
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.weldy.data.remote.model.CatResponse
-import com.example.weldy.domain.usecase.GetRemotePaginatedCatsUseCase
-import com.example.weldy.data.repositoryImpl.CatRepositoryImpl
+import androidx.paging.testing.asSnapshot
 import com.example.weldy.domain.model.Cat
 import com.example.weldy.domain.repository.CatRepository
 import com.example.weldy.domain.repository.paged.CatRemoteSource
+import com.example.weldy.domain.usecase.GetRemotePaginatedCatsUseCase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.runTest
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.containsInAnyOrder
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import javax.inject.Inject
@@ -63,22 +63,24 @@ class GetRemotePaginatedCatsUseCaseTest {
         verify(catRepository).getCatsRemote(10, 1)
     }
 
-    /*@Test
+    @Test
     fun test_paging_contains_expected_items() = runTest {
         val pager = Pager(PagingConfig(pageSize = 10)) {
             catRemoteSource
         }
 
+        val mockList: List<Cat> = List(16) { index -> Cat("Cat$index") }
 
-        val flow: Flow<PagingData<CatResponse>> = pager.flow
+        val flow: Flow<PagingData<Cat>> = pager.flow
 
-        val itemsSnapshot: List<CatResponse> = flow.asSnapshot {
+        val itemsSnapshot: List<Cat> = flow.asSnapshot {
             scrollTo(index = 15)
         }
 
-        assertEquals(
-            expected = List(16) { index -> CatResponse("Cat$index") },
-            actual = itemsSnapshot
+        assertThat(
+            mockList,
+            containsInAnyOrder(itemsSnapshot)
         )
-    }*/
+    }
+
 }
