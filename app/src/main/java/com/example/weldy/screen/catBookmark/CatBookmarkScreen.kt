@@ -32,6 +32,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.weldy.data.local.model.CatEntity
+import com.example.weldy.domain.model.Cat
 import com.example.weldy.navigation.NavigationItem
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +47,7 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
 
     val catBookmarkVM: CatBookmarkVM = hiltViewModel()
     val catList = catBookmarkVM.cats
-    val catListItems: LazyPagingItems<CatEntity> = catList.collectAsLazyPagingItems()
+    val catListItems: LazyPagingItems<Cat> = catList.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
 
 
@@ -97,7 +98,7 @@ fun CatBookmarkList(modifier: Modifier, navController: NavHostController) {
 }
 
 @Composable
-fun ListViewItem(item: CatEntity, onItemClick: (CatEntity) -> Unit) {
+fun ListViewItem(item: Cat, onItemClick: (Cat) -> Unit) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
