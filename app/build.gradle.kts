@@ -53,6 +53,7 @@ android {
 
 dependencies {
     val roomVersion = "2.6.1"
+    val paging_version = "3.3.2"
 
     androidTestImplementation ("androidx.arch.core:core-testing:2.2.0")
     testImplementation ("androidx.arch.core:core-testing:2.1.0") // Replace with your desired version
@@ -78,8 +79,10 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
-    implementation("androidx.paging:paging-compose:3.3.0-beta01")
+    implementation ("androidx.paging:paging-runtime-ktx:$paging_version")
+    implementation("androidx.paging:paging-compose:$paging_version")
+    testImplementation ("androidx.paging:paging-common:$paging_version")
+    androidTestImplementation ("androidx.paging:paging-runtime:$paging_version")
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
