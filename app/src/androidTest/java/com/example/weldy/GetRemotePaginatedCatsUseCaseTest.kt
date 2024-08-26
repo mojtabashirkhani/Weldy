@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsInAnyOrder
+import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.hasItem
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -81,6 +83,22 @@ class GetRemotePaginatedCatsUseCaseTest {
             mockList,
             containsInAnyOrder(itemsSnapshot)
         )
+    }
+
+    @Test
+    fun test_footer_is_visible() = runTest {
+        // Get the Flow of PagingData from the ViewModel under test
+        val pager = Pager(PagingConfig(pageSize = 10)) {
+            catRemoteSource
+        }
+
+        val flow: Flow<PagingData<Cat>> = pager.flow
+
+        val itemsSnapshot: List<Cat> = flow.asSnapshot {
+            appendScrollWhile {item: Cat -> item != Cat("Cat99")}
+        }
+
+        assertThat(itemsSnapshot, hasItem(equalTo("Cat99")))
     }
 
 }
