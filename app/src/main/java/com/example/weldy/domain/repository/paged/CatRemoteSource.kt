@@ -3,13 +3,14 @@ package com.example.weldy.domain.repository.paged
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.weldy.data.remote.model.CatResponse
+import com.example.weldy.domain.model.Cat
 import com.example.weldy.domain.usecase.GetRemotePaginatedCatsUseCase
 import javax.inject.Inject
 
-class CatRemoteSource @Inject constructor(private val getRemotePaginatedCatsUseCase: GetRemotePaginatedCatsUseCase): PagingSource<Int, CatResponse>() {
+class CatRemoteSource @Inject constructor(private val getRemotePaginatedCatsUseCase: GetRemotePaginatedCatsUseCase): PagingSource<Int, Cat>() {
 
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CatResponse> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Cat> {
         return try {
             val nextPage = params.key ?: 1
             val catListResponse = getRemotePaginatedCatsUseCase(params.loadSize, nextPage)
@@ -24,7 +25,7 @@ class CatRemoteSource @Inject constructor(private val getRemotePaginatedCatsUseC
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, CatResponse>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Cat>): Int? {
         return state.anchorPosition
     }
 

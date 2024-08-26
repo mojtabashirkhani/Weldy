@@ -1,9 +1,9 @@
 package com.example.weldy
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.weldy.data.local.model.CatEntity
-import com.example.weldy.domain.usecase.InsertCatToFavouriteUseCase
 import com.example.weldy.data.repositoryImpl.CatRepositoryImpl
+import com.example.weldy.domain.model.Cat
+import com.example.weldy.domain.usecase.InsertCatToFavouriteUseCase
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -35,7 +35,7 @@ class InsertCatToFavouriteUseCaseTest {
 
     @Test
     fun insertCatToFavourite() = runTest {
-        val catEntity = CatEntity(id = "Cat1", url = "http://example.com/cat1.jpg")
+        val catEntity = Cat(id = "Cat1", url = "http://example.com/cat1.jpg")
 
         insertCatToFavouriteUseCase(catEntity)
 

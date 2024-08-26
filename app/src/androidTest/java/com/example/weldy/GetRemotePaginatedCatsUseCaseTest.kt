@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import com.example.weldy.data.remote.model.CatResponse
 import com.example.weldy.domain.usecase.GetRemotePaginatedCatsUseCase
 import com.example.weldy.data.repositoryImpl.CatRepositoryImpl
+import com.example.weldy.domain.model.Cat
 import com.example.weldy.domain.repository.CatRepository
 import com.example.weldy.domain.repository.paged.CatRemoteSource
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -47,8 +48,8 @@ class GetRemotePaginatedCatsUseCaseTest {
     @Test
     fun getCatsRemote() = runTest {
         val mockResponse = listOf(
-            CatResponse("Cat1"),
-            CatResponse("Cat2")
+            Cat("Cat1"),
+            Cat("Cat2")
         )
 
         // Mock the behavior of the repository to return the mock response

@@ -4,13 +4,11 @@ import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.magnifier
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +30,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.weldy.data.remote.model.CatResponse
+import com.example.weldy.domain.model.Cat
 import com.example.weldy.navigation.NavigationItem
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +43,7 @@ import java.nio.charset.StandardCharsets
 fun CatInfoList(modifier: Modifier, navController: NavHostController) {
     val catListVM: CatListVM = hiltViewModel()
     val catList = catListVM.cats
-    val catListItems: LazyPagingItems<CatResponse> = catList.collectAsLazyPagingItems()
+    val catListItems: LazyPagingItems<Cat> = catList.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
@@ -134,7 +133,7 @@ fun CatInfoList(modifier: Modifier, navController: NavHostController) {
 
 
 @Composable
-fun ListViewItem(item: CatResponse, onItemClick: (CatResponse) -> Unit) {
+fun ListViewItem(item: Cat, onItemClick: (Cat) -> Unit) {
     val context = LocalContext.current
     Column(
         modifier = Modifier

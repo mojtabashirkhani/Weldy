@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weldy.data.local.model.CatEntity
 import com.example.weldy.data.remote.model.CatResponse
+import com.example.weldy.domain.model.Cat
 import com.example.weldy.extensions.fromJson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,7 +47,7 @@ fun CatDetail(item: String, isVisible: Boolean) {
             Button(onClick = {
                 coroutineScope.launch {
                     withContext(Dispatchers.IO) {
-                        catDetailVM.insertCatToFavourite(CatEntity(catItem?.id ?: "", catItem?.url, catItem?.width, catItem?.height))
+                        catDetailVM.insertCatToFavourite(Cat(catItem?.id ?: "", catItem?.url, catItem?.width, catItem?.height))
                     }
                 }
             }) {
