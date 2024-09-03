@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id ("com.google.dagger.hilt.android")
+    id ("app.cash.paparazzi")
     kotlin("kapt")
 }
 
@@ -113,7 +114,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     androidTestImplementation ("androidx.room:room-testing:$roomVersion")
 
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    testImplementation("io.coil-kt:coil-test:2.4.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
+    testImplementation("io.coil-kt:coil-test:2.7.0")
 
 }
