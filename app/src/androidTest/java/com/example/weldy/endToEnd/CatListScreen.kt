@@ -1,7 +1,12 @@
 package com.example.weldy.endToEnd
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.test.assertAll
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
@@ -9,9 +14,13 @@ import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.weldy.MainActivity
 import com.example.weldy.screen.catList.CatInfoList
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -150,6 +159,40 @@ class CatListScreen {
             .assertAll(hasDrawable(R.drawable.stat_notify_error)) // Assuming you set this drawable as your error image*/
     }
 
+    @Test
+    fun asyncImage_DisplaysPlaceholderAndLoadsImage() {
+        // Set up Coil to use a fake image loader
+        composeTestRule.setContent {
+            AsyncImage(
+                model = ImageRequest
+                    .Builder(LocalContext.current)
+                    .data("https://example.com/image.png")
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "Test Image",
+                modifier = Modifier.size(
+                    (LocalConfiguration.current.screenWidthDp * 0.3f).dp,
+                    (LocalConfiguration.current.screenWidthDp * 0.4f).dp
+                ),
+                contentScale = ContentScale.Crop,
+                error = painterResource(id = android.R.drawable.stat_notify_error),
+                placeholder = painterResource(id = android.R.drawable.presence_away)
+            )
+        }
+
+        // Check if the placeholder is displayed initially
+        composeTestRule.onNodeWithContentDescription("Test Image")
+            .assertIsDisplayed()
+
+        // Simulate loading an image
+        composeTestRule.waitForIdle()
+
+        // Check if the image is displayed after loading
+        composeTestRule.onNodeWithContentDescription("Test Image")
+            .assertIsDisplayed()
+
+        // You can add more assertions to check error handling or crossfade animations
+    }
 
 
 }

@@ -8,6 +8,9 @@
       <SelectionState runConfigName="InsertCatToFavouriteUseCaseTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="GetLocalCatsPagingSourceUseCaseTest">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>
