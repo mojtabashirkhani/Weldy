@@ -41,8 +41,7 @@ class GetRemotePaginatedCatsUseCaseTest {
     var hiltRule = HiltAndroidRule(this)
 
     // Inject the CatRepository and the GetRemotePaginatedCatsUseCase
-    @BindValue
-    val catRepository: CatRepositoryImpl = mock(CatRepositoryImpl::class.java)
+
 
     @Inject
     lateinit var getRemotePaginatedCatsUseCase: GetRemotePaginatedCatsUseCase
@@ -52,7 +51,8 @@ class GetRemotePaginatedCatsUseCaseTest {
 
     private lateinit var catRemoteSource: CatRemoteSource
 
-    private lateinit var fakeCatRepository: FakeCatRepository
+    @Inject
+    lateinit var catRepository: FakeCatRepository
 
     private lateinit var mockCats: List<CatResponse>
 
@@ -62,7 +62,6 @@ class GetRemotePaginatedCatsUseCaseTest {
         // Inject the dependencies before running the tests
         hiltRule.inject()
         catRemoteSource = CatRemoteSource(getRemotePaginatedCatsUseCase)
-        fakeCatRepository = FakeCatRepository()
 
 
         mockCats = listOf(
@@ -117,7 +116,7 @@ class GetRemotePaginatedCatsUseCaseTest {
     fun test_footer_is_visible() = runTest {
         // Get the Flow of PagingData from the ViewModel under test
         val pager = Pager(PagingConfig(pageSize = 10)) {
-            FakeCatPagingSource(fakeCatRepository)
+            FakeCatPagingSource(catRepository)
         }
 
         val flow: Flow<PagingData<Cat>> = pager.flow

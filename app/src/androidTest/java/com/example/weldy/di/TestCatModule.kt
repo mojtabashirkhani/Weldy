@@ -1,4 +1,3 @@
-/*
 package com.example.weldy.di
 
 import com.example.weldy.FakeCatRepository
@@ -15,4 +14,4 @@ object TestCatModule {
     @Provides
     @Singleton
     fun provideFakeCatRepository(): CatRepository = FakeCatRepository()
-}*/
+}

@@ -4,8 +4,9 @@ import androidx.paging.PagingSource
 import com.example.weldy.data.local.model.CatEntity
 import com.example.weldy.domain.model.Cat
 import com.example.weldy.domain.repository.CatRepository
+import javax.inject.Inject
 
-class FakeCatRepository : CatRepository {
+class FakeCatRepository @Inject constructor() : CatRepository {
 
     private val fakeCatResponses = List(100) { index -> Cat("Cat$index") }
 
