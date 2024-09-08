@@ -7,10 +7,12 @@ import androidx.paging.PagingSource
 import androidx.paging.testing.TestPager
 import androidx.paging.testing.asSnapshot
 import com.example.weldy.data.remote.model.CatResponse
+import com.example.weldy.data.repositoryImpl.CatRepositoryImpl
 import com.example.weldy.domain.model.Cat
 import com.example.weldy.domain.repository.CatRepository
 import com.example.weldy.domain.repository.paged.CatRemoteSource
 import com.example.weldy.domain.usecase.GetRemotePaginatedCatsUseCase
+import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertNull
@@ -25,6 +27,7 @@ import org.hamcrest.Matchers.hasItem
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import java.util.logging.Level.CONFIG
@@ -38,8 +41,8 @@ class GetRemotePaginatedCatsUseCaseTest {
     var hiltRule = HiltAndroidRule(this)
 
     // Inject the CatRepository and the GetRemotePaginatedCatsUseCase
-    @Inject
-    lateinit var catRepository: CatRepository
+    @BindValue
+    val catRepository: CatRepositoryImpl = mock(CatRepositoryImpl::class.java)
 
     @Inject
     lateinit var getRemotePaginatedCatsUseCase: GetRemotePaginatedCatsUseCase

@@ -24,6 +24,7 @@ object DatabaseModule {
     }
 
     @Provides
+    @Singleton
     fun provideCatDao(db: CatDatabase): CatDao {
         return db.catDao()
     }

@@ -1,6 +1,7 @@
 package com.example.weldy.di
 
 import com.example.weldy.FakeCatApi
+import com.example.weldy.data.remote.api.CatApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 object FakeCatApiModule {
     @Provides
     @Singleton
-    fun provideFakeCatApi(): FakeCatApi {
+    fun provideFakeCatApi(): CatApi {
         return FakeCatApi()
     }
 }

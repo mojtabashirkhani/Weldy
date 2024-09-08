@@ -2,8 +2,9 @@ package com.example.weldy
 
 import com.example.weldy.data.remote.api.CatApi
 import com.example.weldy.data.remote.model.CatResponse
+import javax.inject.Inject
 
-class FakeCatApi: CatApi {
+class FakeCatApi @Inject constructor(): CatApi {
 
     private val catResponses = mutableListOf<CatResponse>()
     private var shouldReturnError = false

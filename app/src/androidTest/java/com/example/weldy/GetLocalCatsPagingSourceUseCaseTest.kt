@@ -5,6 +5,7 @@ import com.example.weldy.data.local.model.CatEntity
 import com.example.weldy.domain.usecase.GetLocalCatsPagingSourceUseCase
 import com.example.weldy.data.repositoryImpl.CatRepositoryImpl
 import com.example.weldy.domain.repository.CatRepository
+import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import junit.framework.TestCase.assertEquals
@@ -27,8 +28,8 @@ class GetLocalCatsPagingSourceUseCaseTest {
     var hiltRule = HiltAndroidRule(this)
 
     // Inject the FakeCatRepository and the use case under test
-    @Inject
-    lateinit var catRepository: CatRepository
+    @BindValue
+    val catRepository: CatRepositoryImpl = mock(CatRepositoryImpl::class.java)
 
     @Inject
     lateinit var getLocalCatsPagingSourceUseCase: GetLocalCatsPagingSourceUseCase
