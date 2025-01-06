@@ -57,7 +57,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Instrumentation Tests
-        uses: reactivecircus/android-emulator-runner@v4
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
           script: ./gradlew connectedAndroidTest
