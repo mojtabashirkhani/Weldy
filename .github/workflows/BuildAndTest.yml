@@ -16,7 +16,7 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
       - name: Restore Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew testDebugUnitTest --continue
       - name: Upload Test Reports
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports
           path: '**/build/reports/tests/'
@@ -48,7 +48,7 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
       - name: Restore Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -57,14 +57,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Instrumentation Tests
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: reactivecircus/android-emulator-runner@v4
         with:
           api-level: 29
           script: ./gradlew connectedAndroidTest
 
       - name: Upload Android Test Reports
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: android-test-reports
           path: '**/build/reports/androidTests/'
@@ -82,7 +82,7 @@ jobs:
           java-version: '17'
         uses: actions/setup-java@v4
       - name: Restore Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -96,7 +96,7 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: apk
           path: app/build/outputs/apk/debug/**.apk
@@ -109,7 +109,7 @@ jobs:
       - uses: technote-space/workflow-conclusion-action@v1
       - name: Send mail
         if: failure()
-        uses: dawidd6/action-send-mail@v2
+        uses: dawidd6/action-send-mail@v4
         with:
           server_address: smtp.gmail.com
           server_port: 465
